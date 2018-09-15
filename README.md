@@ -32,15 +32,21 @@ $ az keyvault create --name "kaisayKeyVault" --resource-group "kaisayReourceGrou
 
 为了实现上述目的，则需要通过Azure KeyVault来实现访问串的管理和获取。java应用需要访问Azure keyVault并使用证书的方式进行认证. 我们需要为访问Azure资源的Java应用创建service principal，这是通过SDK在访问Azure资源时所需的一步。在日常的设计中，使用证书的方式访问keyvault是更为推荐的方式，应用app需要下载相应的private key用于后续访问keyvault取得其他secret（比如Redis的包含password的访问串）
 
+比如如果是采用密码的方式如下命令，但一般不推荐使用在生产应用集成中
+
+```text
+az ad sp create-for-rbac --name ServicePrincipalName --password PASSWORD
+```
+
+本例子中使用创建新的cert的方式
+
 ```text
 az ad sp create-for-rbac --name KVJavaApp1 --create-cert --cert Cert20180914 --keyvault kaisayKeyVault
 ```
 
-
-
 ![&#x521B;&#x5EFA;&#x6210;&#x529F;&#x540E;&#x4F1A;&#x663E;&#x793A;appId&#xFF0C;name&#x7B49;&#xFF0C;appId&#x7528;&#x4E8E;&#x540E;&#x7EED;&#x5E94;&#x7528;&#x4E2D;&#x7684;clientID](.gitbook/assets/screen-shot-2018-09-15-at-1.17.38-pm.png)
 
-![&#x70B9;&#x51FB;&#x53F3;&#x4E0A;&#x89D2;download pfx/pem format&#x4E0B;&#x8F7D;&#x4FDD;&#x5B58;&#x8BC1;&#x4E66;](.gitbook/assets/screen-shot-2018-09-15-at-1.21.16-pm.png)
+![&#x70B9;&#x51FB;&#x53F3;&#x4E0A;&#x89D2;download pfx/pem format&#x4E0B;&#x8F7D;&#x4FDD;&#x5B58;&#x8BC1;&#x4E66;&#x79C1;&#x94A5;](.gitbook/assets/screen-shot-2018-09-15-at-1.21.16-pm.png)
 
 接下来，需要配置应用可以访问这个keyVault，通过portal操作如下：
 
