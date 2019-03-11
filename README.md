@@ -143,3 +143,32 @@ clusterClient.shutdown();
 
 ![&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x7ED3;&#x6784;](.gitbook/assets/screen-shot-2018-09-15-at-5.01.41-pm.png)
 
+启用azure keyvault logging with Azure Cli
+```text
+➜  azure az monitor diagnostic-settings create --resource "/subscriptions/083f3fc7-4620-42f6-abfe-4080fa8bae8e/resourceGroups/key/providers/Microsoft.KeyVault/vaults/kaix" -n "kvlogging1" --storage-account "keydiag1" --resource-group "key" --logs '[{"category": "AuditEvent","enabled": true,"retentionPolicy": {"enabled": true,"days": 90}}]'
+{
+  "eventHubAuthorizationRuleId": null,
+  "eventHubName": null,
+  "id": "/subscriptions/083f3fc7-4620-42f6-abfe-4080fa8bae8e/resourcegroups/key/providers/microsoft.keyvault/vaults/kaix/providers/microsoft.insights/diagnosticSettings/kvlogging1",
+  "identity": null,
+  "kind": null,
+  "location": null,
+  "logs": [
+    {
+      "category": "AuditEvent",
+      "enabled": true,
+      "retentionPolicy": {
+        "days": 90,
+        "enabled": true
+      }
+    }
+  ],
+  "metrics": [],
+  "name": "kvlogging1",
+  "resourceGroup": "key",
+  "storageAccountId": "/subscriptions/083f3fc7-4620-42f6-abfe-4080fa8bae8e/resourceGroups/key/providers/microsoft.Storage/storageAccounts/keydiag1",
+  "tags": null,
+  "type": null,
+  "workspaceId": null
+}
+```
